@@ -140,9 +140,29 @@ A Swing-based graphical interface for the seller agent.
 | **Apache Ant** | 1.8.0+ (for building) |
 | **JADE** | 4.5.0 (included in `dist/lib/`) |
 
-## Getting Started
+## Quick Start
 
-### 1. Build the Project
+Run the full demo with a single command (seller + buyer agents):
+
+```bash
+cd BookTrading/dist
+java -cp "lib/jade.jar:lib/commons-codec-1.3.jar:BookTrading.jar" \
+  jade.Boot -gui \
+  "seller1:booktrading.BookSellerAgent;buyer1:booktrading.BookBuyerAgent(Java 101)"
+```
+
+This will open:
+1. **JADE RMA** - the platform management GUI
+2. **Seller GUI** - add books here (title + price → click **Add**)
+3. **Buyer Agent** - automatically searches for "Java 101" every 60 seconds
+
+Add `Java 101` with any price in the Seller GUI and watch the buyer purchase it automatically.
+
+## Getting Started (Detailed)
+
+### 1. Build from Source (Optional)
+
+If you want to recompile the project:
 
 ```bash
 cd BookTrading
@@ -155,17 +175,22 @@ ant jar
 ```bash
 cd BookTrading/dist
 
-# Option 1: Start the platform with GUI, then create agents manually
+# Option 1: Platform only (create agents manually via RMA GUI)
 java -cp "lib/jade.jar:lib/commons-codec-1.3.jar:BookTrading.jar" \
   jade.Boot -gui
 
-# Option 2: Start with seller agents from the command line
+# Option 2: Platform + seller agents
 java -cp "lib/jade.jar:lib/commons-codec-1.3.jar:BookTrading.jar" \
   jade.Boot -gui \
   "seller1:booktrading.BookSellerAgent;seller2:booktrading.BookSellerAgent"
+
+# Option 3: Full demo (seller + buyer)
+java -cp "lib/jade.jar:lib/commons-codec-1.3.jar:BookTrading.jar" \
+  jade.Boot -gui \
+  "seller1:booktrading.BookSellerAgent;buyer1:booktrading.BookBuyerAgent(Java 101)"
 ```
 
-### 3. Add a Buyer Agent
+### 3. Add Agents via RMA GUI
 
 From the JADE RMA (Remote Management Agent) GUI:
 
@@ -173,14 +198,6 @@ From the JADE RMA (Remote Management Agent) GUI:
 2. Agent Name: `buyer1`
 3. Class Name: `booktrading.BookBuyerAgent`
 4. Arguments: `Java 101` (the book title to search for)
-
-Or directly from the command line:
-
-```bash
-java -cp "lib/jade.jar:lib/commons-codec-1.3.jar:BookTrading.jar" \
-  jade.Boot -gui \
-  "seller1:booktrading.BookSellerAgent;buyer1:booktrading.BookBuyerAgent(Java 101)"
-```
 
 ### 4. Add Books via the Seller GUI
 
